@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+<!--http://lbs.amap.com/console/show/picker-->
+<head>
+    <!-- 原始地址：//webapi.amap.com/ui/1.0/ui/misc/PathSimplifier/examples/simple-data.html -->
+    <base href="http://webapi.amap.com/ui/1.0/ui/misc/PathSimplifier/examples/" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>那些年在深圳走过的路</title>
+    <style>
+    html,
+    body,
+    #container {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/javascript" src='http://webapi.amap.com/maps?v=1.4.6&key=3af5516e0deb85dbd29fa83dca0477c1'></script>
+    <!-- UI组件库 1.0 -->
+    <script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+    <script type="text/javascript">
+    //创建地图
+    var map = new AMap.Map('container', {
+        zoom: 4
+    });
+
+    AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function(PathSimplifier, $) {
+
+        if (!PathSimplifier.supportCanvas) {
+            alert('当前环境不支持 Canvas！');
+            return;
+        }
+
+        var pathSimplifierIns = new PathSimplifier({
+            zIndex: 100,
+            //autoSetFitView:false,
+            map: map, //所属的地图实例
+
+            getPath: function(pathData, pathIndex) {
+
+                var points = pathData.points,
+                    lnglatList = [];
+
+                for (var i = 0, len = points.length; i < len; i++) {
+                    lnglatList.push(points[i].lnglat);
+                }
+
+                return lnglatList;
+            },
+            getHoverTitle: function(pathData, pathIndex, pointIndex) {
+
+                if (pointIndex >= 0) {
+                    //point 
+                    return pathData.name + '，' + pathData.points[pointIndex].name;
+                }
+
+                return pathData.name + '，点数量' + pathData.points.length;
+            },
+            renderOptions: {
+
+                renderAllPointsIfNumberBelow: 100 //绘制路线节点，如不需要可设置为-1
+            }
+        });
+
+        window.pathSimplifierIns = pathSimplifierIns;
+
+        //设置数据
+        pathSimplifierIns.setData([{
+            name: '路线0',
+            points: [{
+                name: "点a",
+                lnglat: [113.931162,22.507309]   <!-- 第二统建楼 -->
+            }, {
+                name: "点b",
+                lnglat: [113.95271,22.504065]   <!-- 深圳湾公园 -->
+            }, {
+                name: "点c",
+                lnglat: [113.905754,22.493805]  <!-- 南山公园 -->
+            }, {
+                name: "点d",
+                lnglat: [114.007148,22.526167]   <!-- 福田红树林 -->
+            }, {
+                name: "点e",
+                lnglat: [113.926747,22.49597]    <!-- 四海公园 -->
+            }, {
+                name: "点f",
+                lnglat: [113.986507,22.5728591]   <!-- 塘朗山公园 -->
+            }, {
+                name: "点g",
+                lnglat: [114.175402,22.578439]    <!-- 仙湖植物园 -->
+            }, {
+                name: "点h",
+                lnglat: [114.058059,22.553316]   <!-- 莲花山公园 -->
+            }, {
+                name: "点i",
+                lnglat: [114.059658,22.530783]   <!-- 会展中心 -->
+            }, {
+                name: "点j",
+                lnglat: [113.899195,22.500443]   <!-- 月亮湾公园 -->
+            }, {
+                name: "点k",
+                lnglat: [113.936091,22.533719]   <!-- 深圳大学 -->
+            }, {
+                name: "点l",
+                lnglat: [113.986485,22.530783]   <!-- 中华民俗村 --> 
+            }, {
+                name: "点m",
+                lnglat: [113.882718,22.548703]   <!-- 宝安区图书馆 -->  
+            }, {
+		 name: "n",
+                lnglat: [113.92269,22.534872]   <!-- 南山图书馆--> 
+	    }, {
+               	 name: "o",
+                lnglat: [113.92951,22.536475]   <!-- 荔香公园 --> 
+            }, {
+		 name: "p",
+                lnglat: [113.898127,22.475819]   <!-- 古炮台 --> 
+	    }, {
+               	 name: "q",
+                lnglat: [114.152041,22.562626]   <!-- 东湖公园 -->
+            }, {
+		 name: "r",
+                lnglat: [114.134295,22.563934]   <!-- 翠竹公园 --> 
+	   }, {
+               	 name: "s",
+                lnglat: [113.883181,22.485486]   <!-- 小南山公园 -->
+           }, {
+		 name: "t",
+                lnglat: [114.057235,22.545584]   <!-- 深圳图书馆--> 
+	   }, {
+               	 name: "u",
+                lnglat: [114.032445,22.514903]   <!-- 福田红树林生态公园 --> 
+            }, {
+		 name: "v",
+                lnglat: [113.97313,22.590333]   <!-- 科技图书馆 -->   
+	    }, {
+               	 name: "w",
+                lnglat: [113.950333,22.578151]   <!-- 石鼓山公园 -->
+            }, {
+		 name: "x",
+                lnglat: [113.90268,22.586228]   <!--  宝安公园 --> 
+	   }, {
+               	 name: "y",
+                lnglat: [113.986019,22.541638]   <!-- 燕晗山郊野公园 -->
+           }, {
+               	 name: "z",
+                lnglat: [113.943055,22.523498]   <!-- 科技公园 --> 
+            
+            }, {
+               	 name: "aa",
+                lnglat: [113.950333,22.578151]   <!-- 石鼓山公园 -->
+           }, {
+               	 name: "bb",
+                lnglat: [113.90268,22.586228]   <!--  宝安公园 --> 
+	}, {
+               	 name: "cc",
+                lnglat: [113.986019,22.541638]   <!-- 燕晗山郊野公园 -->
+           }, {
+               	 name: "dd",
+                lnglat: [113.943055,22.523498]   <!-- 科技公园 --> 
+	}, {
+               	 name: "ee",
+                lnglat: [113.986019,22.541638]   <!-- 燕晗山郊野公园 -->
+           }, {
+               	 name: "ff",
+                lnglat: [113.943055,22.523498]   <!-- 科技公园 --> 
+	}, {
+               	 name: "gg",
+                lnglat: [113.986019,22.541638]   <!-- 燕晗山郊野公园 -->
+           }, {
+               	 name: "hh",
+                lnglat: [113.943055,22.523498]   <!-- 科技公园 --> 
+	}, {
+               	 name: "ii",
+                lnglat: [114.080958,22.562793]   <!-- 笔架山公园 --> 
+           }, {
+               	 name: "jj",
+                lnglat: [113.910474,22.507679]   <!-- 荔林公园 -->
+	}, {
+               	 name: "kk",
+                lnglat: [114.003887,22.537442]   <!-- 花夲博览园 -->
+           }, {
+               	 name: "ll",
+                lnglat: [113.918808,22.54776]   <!-- 中山公园 -->
+	}, {
+               	 name: "mm",
+                lnglat: [114.080958,22.562793]   <!-- 前海花夲公园 --> 
+           }, {
+               	 name: "oo",
+                lnglat: [114.022174,22.546625]   <!-- 香蜜公园 -->  
+	}, {
+               	 name: "pp",
+                lnglat: [114.032753,22.547042]   <!-- 香蜜湖--> 
+           }, {
+               	 name: "jj",
+                lnglat: [114.102351,22.545647]   <!-- 荔枝公园 --> 
+	}, {
+               	 name: "kk",
+                lnglat: [114.078029,22.545226]   <!-- 中心公园 -->
+            }]
+        }]);
+
+        //选中路线0
+        pathSimplifierIns.setSelectedPathIndex(0);
+
+        pathSimplifierIns.on('pointClick', function(e, info) {
+
+            console.log('Click: ' + info.pathData.points[info.pointIndex].name);
+        });
+    });
+    </script>
+</body>
+
+</html>
